@@ -72,32 +72,16 @@ public class Admin {
         teacherAPI.removeTeacher(teacherID);
     }
 
-    public void viewTeacherDetails(String teacherID) {
-        Teacher teacher = teacherAPI.getTeacher(teacherID);
-
-        if(teacher != null)
-            System.out.println(teacher);
-        else
-            System.out.println("Teacher not found");
+    public Teacher viewTeacherDetails(String teacherID) {
+        return teacherAPI.getTeacher(teacherID);
     }
 
-    public void viewAllTeachers() {
-        List<Teacher> teachers = teacherAPI.getTeachers();
-
-        for (Teacher teacher : teachers) {
-            System.out.println(teacher);
-        }
+    public List<Teacher> viewAllTeachers() {
+        return teacherAPI.getTeachers();
     }
 
-    public void updateTeacherData(String teacherID, String name) {
-        teacherAPI.updateTeacher(teacherID, name);
-    }
-    public void updateTeacherData(String teacherID, String name, String email) {
-        teacherAPI.updateTeacher(teacherID, name, email);
-    }
-
-    public void updateTeacherData(String teacherID, String name, String email, String mobileNumber) {
-        teacherAPI.updateTeacher(teacherID, name, email, mobileNumber);
+    public void updateTeacherData(Teacher teacher) {
+        teacherAPI.updateTeacherData(teacher);
     }
 
     public void addStudent() {

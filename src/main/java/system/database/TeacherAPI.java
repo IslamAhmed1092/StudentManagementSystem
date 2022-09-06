@@ -3,6 +3,7 @@ package system.database;
 import system.Teacher;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TeacherAPI {
     private final Database db;
@@ -20,36 +21,18 @@ public class TeacherAPI {
     }
 
     public Teacher getTeacher(String teacherID) {
-        return db.teachers.get(teacherID);
+        Teacher teacher = db.teachers.get(teacherID);
+
+        return (teacher!=null)? new Teacher(teacher) : null;
     }
     public List<Teacher> getTeachers() {
-        return new ArrayList<>(db.teachers.values());
+        return db.teachers.values().stream().map(Teacher::new).collect(Collectors.toList());
     }
 
-    public void updateTeacher(String teacherID, String name) {
-        Teacher teacher = getTeacher(teacherID);
-        if (teacher != null) {
-            teacher.setName(name);
+    public void updateTeacherData(Teacher teacher) {
+        if(db.teachers.containsKey(teacher.getId()))
             db.teachers.put(teacher.getId(), teacher);
-        }
+
     }
 
-    public void updateTeacher(String teacherID, String name, String email) {
-        Teacher teacher = getTeacher(teacherID);
-        if (teacher != null) {
-            teacher.setName(name);
-            teacher.setEmail(email);
-            db.teachers.put(teacher.getId(), teacher);
-        }
-    }
-
-    public void updateTeacher(String teacherID, String name, String email, String mobilePhone) {
-        Teacher teacher = getTeacher(teacherID);
-        if (teacher != null) {
-            teacher.setName(name);
-            teacher.setEmail(email);
-            teacher.setMobileNumber(mobilePhone);
-            db.teachers.put(teacher.getId(), teacher);
-        }
-    }
 }

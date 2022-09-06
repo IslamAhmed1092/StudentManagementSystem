@@ -1,5 +1,12 @@
 package system.database;
 
+import system.Student;
+import system.Teacher;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class StudentAPI {
     private final Database db;
 
@@ -7,24 +14,27 @@ public class StudentAPI {
         this.db = Database.getInstance();
     }
 
-    public void addStudent() {
-
+    public void addStudent(Student student) {
+        db.students.put(student.getId(), student);
     }
 
-    public void removeStudent() {
-
+    public void removeStudent(String studentID) {
+        db.students.remove(studentID);
     }
 
-    public void viewAllStudents() {
+    public Student getStudent(String studentID) {
+        Student student = db.students.get(studentID);
 
+        return (student!=null)? new Student(student) : null;
     }
 
-    public void viewStudentDetails() {
-
+    public List<Student> getStudents() {
+        return db.students.values().stream().map(Student::new).collect(Collectors.toList());
     }
 
-    public void updateStudentData() {
-
+    public void updateStudentData(Student student) {
+        if(db.students.containsKey(student.getId()))
+            db.students.put(student.getId(), student);
     }
 
 }

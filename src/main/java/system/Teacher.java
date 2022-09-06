@@ -31,6 +31,13 @@ public class Teacher {
         this.mobileNumber = mobileNumber;
     }
 
+    public Teacher(Teacher other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.email = other.email;
+        this.mobileNumber = other.mobileNumber;
+    }
+
     public String getId() {
         return id;
     }

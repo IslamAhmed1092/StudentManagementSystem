@@ -1,4 +1,7 @@
 import system.Admin;
+import system.Teacher;
+
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -10,23 +13,39 @@ public class App {
 
 
         System.out.println("*****************************************************");
-        admin1.viewAllTeachers();
+        List<Teacher> teachers1 = admin1.viewAllTeachers();
+
+        for (Teacher teacher : teachers1) {
+            System.out.println(teacher);
+        }
+
         System.out.println("*****************************************************\n");
 
         admin1.removeTeacher("1");
 
         System.out.println("*****************************************************");
-        admin1.viewAllTeachers();
+        List<Teacher> teachers2 = admin1.viewAllTeachers();
+
+        for (Teacher teacher : teachers2) {
+            System.out.println(teacher);
+        }
         System.out.println("*****************************************************\n");
 
         System.out.println("*****************************************************");
-        admin1.viewTeacherDetails("2");
-        admin1.viewTeacherDetails("1");
+        System.out.println(admin1.viewTeacherDetails("2"));
+        System.out.println(admin1.viewTeacherDetails("1"));
+        System.out.println("*****************************************************\n");
+
+
+        System.out.println("*****************************************************");
+        Teacher teacher0 = admin1.viewTeacherDetails("0");
+        teacher0.setName("updated teacher");
+        System.out.println(admin1.viewTeacherDetails("0"));
         System.out.println("*****************************************************\n");
 
         System.out.println("*****************************************************");
-        admin1.updateTeacherData("0", "updated teacher");
-        admin1.viewTeacherDetails("0");
+        admin1.updateTeacherData(teacher0);
+        System.out.println(admin1.viewTeacherDetails("0"));
         System.out.println("*****************************************************\n");
     }
 }
