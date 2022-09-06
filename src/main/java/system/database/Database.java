@@ -6,18 +6,21 @@ import system.Student;
 import system.Teacher;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 class Database {
-    public ArrayList<Teacher> teachers;
-    public ArrayList<Student> students;
+    public Map<String, Teacher> teachers;
+    public Map<String, Student> students;
 
-    public ArrayList<Course> courses;
+    public Map<String, Course> courses;
 
     private static Database db = null;
 
     private Database() {
-        teachers = new ArrayList<>();
-        students = new ArrayList<>();
+        teachers = new HashMap<>();
+        students = new HashMap<>();
+        courses = new HashMap<>();
     }
 
     public static Database getInstance() {

@@ -3,7 +3,9 @@ package system;
 import system.database.StudentAPI;
 import system.database.TeacherAPI;
 
-public class Admin  {
+import java.util.List;
+
+public class Admin {
     private String id;
     private String name;
     private String email;
@@ -13,36 +15,21 @@ public class Admin  {
     private final TeacherAPI teacherAPI;
 
     public Admin() {
-        teacherAPI = new TeacherAPI();
-
-        id = String.valueOf(idCounter++);
-        this.name = "";
-        this.email = "";
-        this.mobileNumber = "";
+        this("", "", "");
     }
 
     public Admin(String name) {
-        teacherAPI = new TeacherAPI();
-
-        id = String.valueOf(idCounter++);
-        this.name = name;
-        this.email = "";
-        this.mobileNumber = "";
+        this(name, "", "");
     }
 
     public Admin(String name, String email) {
-        teacherAPI = new TeacherAPI();
-
-        id = String.valueOf(idCounter++);
-        this.name = name;
-        this.email = email;
-        this.mobileNumber = "";
+        this(name, email, "");
     }
 
     public Admin(String name, String email, String mobileNumber) {
         teacherAPI = new TeacherAPI();
 
-        id = String.valueOf(idCounter++);
+        this.id = String.valueOf(idCounter++);
         this.name = name;
         this.email = email;
         this.mobileNumber = mobileNumber;
@@ -50,10 +37,6 @@ public class Admin  {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -80,42 +63,65 @@ public class Admin  {
         this.mobileNumber = mobileNumber;
     }
 
-    void addTeacher() {
+    public void addTeacher(String name, String email, String mobileNumber) {
+        Teacher teacher = new Teacher(name, email, mobileNumber);
+        teacherAPI.addTeacher(teacher);
+    }
+
+    public void removeTeacher(String teacherID) {
+        teacherAPI.removeTeacher(teacherID);
+    }
+
+    public void viewTeacherDetails(String teacherID) {
+        Teacher teacher = teacherAPI.getTeacher(teacherID);
+
+        if(teacher != null)
+            System.out.println(teacher);
+        else
+            System.out.println("Teacher not found");
+    }
+
+    public void viewAllTeachers() {
+        List<Teacher> teachers = teacherAPI.getTeachers();
+
+        for (Teacher teacher : teachers) {
+            System.out.println(teacher);
+        }
+    }
+
+    public void updateTeacherData(String teacherID, String name) {
+        teacherAPI.updateTeacher(teacherID, name);
+    }
+    public void updateTeacherData(String teacherID, String name, String email) {
+        teacherAPI.updateTeacher(teacherID, name, email);
+    }
+
+    public void updateTeacherData(String teacherID, String name, String email, String mobileNumber) {
+        teacherAPI.updateTeacher(teacherID, name, email, mobileNumber);
+    }
+
+    public void addStudent() {
 
     }
 
-    void removeTeacher() {
-    }
-
-    void viewAllTeachers() {
-    }
-
-    void viewTeacherDetails() {
+    public void removeStudent() {
 
     }
 
-    void updateTeacherData() {
+    public void viewAllStudents() {
 
     }
 
-    void addStudent() {
+    public void viewStudentDetails() {
 
     }
 
-    void removeStudent() {
+    public void updateStudentData() {
 
     }
 
-    void viewAllStudents() {
-
+    @Override
+    public String toString() {
+        return String.format("Admin [ID = %s, Name = %s, Email = %s, Mobile Number = %s]", id, name, email, mobileNumber);
     }
-
-    void viewStudentDetails() {
-
-    }
-
-    void updateStudentData() {
-
-    }
-
 }
