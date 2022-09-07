@@ -8,12 +8,28 @@ public class Assignment {
     private String courseId;
     private Date dueDate;
 
-    public String getId() {
-        return id;
+    private AssignmentSubmission assignmentSubmission;
+
+    private static long idCounter = 0;
+
+    public Assignment(String description, String courseId, Date dueDate) {
+        this.id = String.valueOf(idCounter++);
+        this.description = description;
+        this.courseId = courseId;
+        this.dueDate = dueDate;
+        this.assignmentSubmission = null;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Assignment(Assignment other) {
+        this.id = other.id;
+        this.description = other.description;
+        this.courseId = other.courseId;
+        this.dueDate = other.dueDate;
+        this.assignmentSubmission = other.assignmentSubmission;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getDescription() {
@@ -39,4 +55,13 @@ public class Assignment {
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
+
+    public AssignmentSubmission getAssignmentSubmission() {
+        return assignmentSubmission;
+    }
+
+    public void submitAssignment(AssignmentSubmission assignmentSubmission) {
+        this.assignmentSubmission = assignmentSubmission;
+    }
+
 }

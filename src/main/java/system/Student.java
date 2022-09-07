@@ -1,5 +1,6 @@
 package system;
 
+import system.database.AssignmentAPI;
 import system.database.CourseAPI;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Student {
     private static long idCounter = 0;
 
     private final CourseAPI courseAPI;
+    private final AssignmentAPI assignmentAPI;
 
 
     public Student(String name, String email, String mobileNumber, int age, String address, String gender) {
@@ -32,6 +34,7 @@ public class Student {
         enrolledCourses = new ArrayList<>();
 
         courseAPI = new CourseAPI();
+        this.assignmentAPI = new AssignmentAPI();
     }
 
 
@@ -46,6 +49,7 @@ public class Student {
         this.gender = other.gender;
         this.enrolledCourses = new ArrayList<>(other.enrolledCourses);
         this.courseAPI = new CourseAPI();
+        this.assignmentAPI = new AssignmentAPI();
     }
 
     public String getId() {
@@ -104,12 +108,12 @@ public class Student {
         return courseAPI.getCourses(enrolledCourses);
     }
 
-    public void viewAssignments(String courseID) {
-
+    public List<Assignment> viewAssignments(String courseID) {
+        return assignmentAPI.getAssignments(courseID);
     }
 
     public void submitAssignment(AssignmentSubmission assignmentSubmission) {
-
+        assignmentAPI.submitAssignment(assignmentSubmission);
     }
 
 
