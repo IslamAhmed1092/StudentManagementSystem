@@ -1,6 +1,7 @@
 package system.database;
 
 import system.Course;
+import system.CourseAttendance;
 import system.Student;
 import system.Teacher;
 
@@ -54,6 +55,10 @@ public class CourseAPI {
         if(db.courses.containsKey(course.getId()))
             db.courses.put(course.getId(), course);
 
+    }
+
+    public void submitCourseAttendance(List<CourseAttendance> courseAttendances) {
+        db.courseAttendances.addAll(courseAttendances);
     }
 
 }

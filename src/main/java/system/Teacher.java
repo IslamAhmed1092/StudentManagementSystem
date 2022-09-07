@@ -1,5 +1,6 @@
 package system;
 
+import system.database.AssignmentAPI;
 import system.database.CourseAPI;
 import system.database.StudentAPI;
 
@@ -19,6 +20,7 @@ public class Teacher {
 
     private final StudentAPI studentAPI;
     private final CourseAPI courseAPI;
+    private final AssignmentAPI assignmentAPI;
 
     public Teacher() {
         this("", "", "");
@@ -35,6 +37,7 @@ public class Teacher {
     public Teacher(String name, String email, String mobileNumber) {
         this.studentAPI = new StudentAPI();
         this.courseAPI = new CourseAPI();
+        this.assignmentAPI = new AssignmentAPI();
 
         this.id = String.valueOf(idCounter++);
         this.name = name;
@@ -49,6 +52,7 @@ public class Teacher {
         this.mobileNumber = other.mobileNumber;
         this.studentAPI = other.studentAPI;
         this.courseAPI = other.courseAPI;
+        this.assignmentAPI = other.assignmentAPI;
     }
 
     public String getId() {
@@ -100,11 +104,11 @@ public class Teacher {
     }
 
     public void addAssignment(Assignment assignment) {
-
+        assignmentAPI.addAssignment(assignment);
     }
 
-    public void submitStudentsAttendance(CourseAttendance[] courseAttendances) {
-
+    public void submitStudentsAttendance(List<CourseAttendance> courseAttendances) {
+        courseAPI.submitCourseAttendance(courseAttendances);
     }
 
     @Override
