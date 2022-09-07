@@ -10,6 +10,20 @@ public class Student {
     String address;
     String gender;
 
+    private static long idCounter = 0;
+
+    public Student(String name, String email, String mobileNumber, int age, String address, String gender) {
+        this.id = String.valueOf(idCounter++);
+        this.name = name;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.age = age;
+        this.address = address;
+        this.gender = gender;
+    }
+
+
+
     public Student(Student other) {
         this.id = other.id;
         this.name = other.name;
@@ -82,5 +96,11 @@ public class Student {
 
     public void submitAssignment(AssignmentSubmission assignmentSubmission) {
 
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Student [ID = %s, Name = %s, Email = %s, Mobile Number = %s, age = %d, address = %s, gender = %s]"
+                , id, name, email, mobileNumber, age, address, gender);
     }
 }

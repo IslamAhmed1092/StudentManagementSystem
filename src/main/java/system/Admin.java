@@ -13,6 +13,7 @@ public class Admin {
 
     private static long idCounter = 0;
     private final TeacherAPI teacherAPI;
+    private final StudentAPI studentAPI;
 
     public Admin() {
         this("", "", "");
@@ -28,6 +29,7 @@ public class Admin {
 
     public Admin(String name, String email, String mobileNumber) {
         teacherAPI = new TeacherAPI();
+        studentAPI = new StudentAPI();
 
         this.id = String.valueOf(idCounter++);
         this.name = name;
@@ -84,24 +86,25 @@ public class Admin {
         teacherAPI.updateTeacherData(teacher);
     }
 
-    public void addStudent() {
-
+    public void addStudent(String name, String email, String mobileNumber, int age, String address, String gender) {
+        Student student = new Student(name, email, mobileNumber, age, address, gender);
+        studentAPI.addStudent(student);
     }
 
-    public void removeStudent() {
-
+    public void removeStudent(String studentID) {
+        studentAPI.removeStudent(studentID);
     }
 
-    public void viewAllStudents() {
-
+    public Student viewStudentDetails(String studentID) {
+        return studentAPI.getStudent(studentID);
     }
 
-    public void viewStudentDetails() {
-
+    public List<Student> viewAllStudents() {
+        return studentAPI.getStudents();
     }
 
-    public void updateStudentData() {
-
+    public void updateStudentData(Student student) {
+        studentAPI.updateStudentData(student);
     }
 
     @Override
