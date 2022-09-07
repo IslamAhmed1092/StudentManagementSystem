@@ -1,5 +1,10 @@
 package system;
 
+import system.database.CourseAPI;
+import system.database.StudentAPI;
+
+import java.util.List;
+
 public class Teacher {
 
     private String id;
@@ -11,6 +16,9 @@ public class Teacher {
     private static long idCounter = 0;
 
     private String mobileNumber;
+
+    private final StudentAPI studentAPI;
+    private final CourseAPI courseAPI;
 
     public Teacher() {
         this("", "", "");
@@ -25,6 +33,9 @@ public class Teacher {
     }
 
     public Teacher(String name, String email, String mobileNumber) {
+        this.studentAPI = new StudentAPI();
+        this.courseAPI = new CourseAPI();
+
         this.id = String.valueOf(idCounter++);
         this.name = name;
         this.email = email;
@@ -36,6 +47,8 @@ public class Teacher {
         this.name = other.name;
         this.email = other.email;
         this.mobileNumber = other.mobileNumber;
+        this.studentAPI = other.studentAPI;
+        this.courseAPI = other.courseAPI;
     }
 
     public String getId() {
@@ -66,27 +79,31 @@ public class Teacher {
         this.mobileNumber = mobileNumber;
     }
 
-    void viewStudentsAssignedClasses() {
+    public void viewStudentsAssignedClasses() {
+        List<Student> students = studentAPI.getStudents();
+
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+
+    public List<Student> getStudentsInCourse(String courseID) {
+        return courseAPI.getStudentsByCourseID(courseID);
+    }
+
+    public List<Course> getAllClasses() {
+        return courseAPI.getCourses();
+    }
+
+    public Student getStudentData(String studentId) {
+        return studentAPI.getStudent(studentId);
+    }
+
+    public void addAssignment(Assignment assignment) {
 
     }
 
-    void getStudentsInCourse(String courseID) {
-
-    }
-
-    void getAllClasses() {
-
-    }
-
-    void getStudentData(String studentId) {
-
-    }
-
-    void addAssignment(Assignment assignment) {
-
-    }
-
-    void submitStudentsAttendance(CourseAttendance[] courseAttendances) {
+    public void submitStudentsAttendance(CourseAttendance[] courseAttendances) {
 
     }
 

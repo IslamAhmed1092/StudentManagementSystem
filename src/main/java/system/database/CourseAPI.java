@@ -1,8 +1,10 @@
 package system.database;
 
 import system.Course;
+import system.Student;
 import system.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -27,6 +29,18 @@ public class CourseAPI {
 
         return (course!=null)? new Course(course) : null;
     }
+
+    public List<Student> getStudentsByCourseID(String courseID) {
+        Course course = db.courses.get(courseID);
+
+        if(course == null)
+            return new ArrayList<>();
+        else {
+            List<Student> courseStudents = course.getStudents().stream().map(db.students::get).filter(Objects::nonNull).collect(Collectors.toList());
+            return courseStudents.stream().map(Student::new).collect(Collectors.toList());
+        }
+    }
+
     public List<Course> getCourses(List<String> ids) {
         List<Course> selectedCourses = ids.stream().map(db.courses::get).filter(Objects::nonNull).collect(Collectors.toList());
         return selectedCourses.stream().map(Course::new).collect(Collectors.toList());

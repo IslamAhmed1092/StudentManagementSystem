@@ -1,13 +1,8 @@
 package system.database;
 
-import system.Admin;
-import system.Course;
-import system.Student;
-import system.Teacher;
+import system.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 class Database {
     public Map<String, Teacher> teachers;
@@ -15,12 +10,18 @@ class Database {
 
     public Map<String, Course> courses;
 
+    public Map<String, List<Assignment>> assignments;
+
+    public Set<CourseAttendance> courseAttendances;
+
     private static Database db = null;
 
     private Database() {
         teachers = new HashMap<>();
         students = new HashMap<>();
         courses = new HashMap<>();
+        assignments = new HashMap<>();
+        courseAttendances = new TreeSet<>();
     }
 
     public static Database getInstance() {

@@ -48,6 +48,10 @@ public class Course {
         this.teacherID = teacherID;
     }
 
+    public List<String> getStudents() {
+        return students;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
