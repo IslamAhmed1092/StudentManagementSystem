@@ -1,16 +1,25 @@
 package system;
 
+import system.database.CourseAPI;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Student {
 
-    String id;
-    String name;
-    String email;
-    String mobileNumber;
-    int age;
-    String address;
-    String gender;
+    private String id;
+    private String name;
+    private String email;
+    private String mobileNumber;
+    private int age;
+    private String address;
+    private String gender;
 
+    private List<String> enrolledCourses;
     private static long idCounter = 0;
+
+    private final CourseAPI courseAPI;
+
 
     public Student(String name, String email, String mobileNumber, int age, String address, String gender) {
         this.id = String.valueOf(idCounter++);
@@ -20,10 +29,13 @@ public class Student {
         this.age = age;
         this.address = address;
         this.gender = gender;
+        enrolledCourses = new ArrayList<>();
+
+        courseAPI = new CourseAPI();
     }
 
 
-
+    @SuppressWarnings({"IncompleteCopyConstructor"})
     public Student(Student other) {
         this.id = other.id;
         this.name = other.name;
@@ -32,6 +44,8 @@ public class Student {
         this.age = other.age;
         this.address = other.address;
         this.gender = other.gender;
+        this.enrolledCourses = new ArrayList<>(other.enrolledCourses);
+        this.courseAPI = new CourseAPI();
     }
 
     public String getId() {
@@ -86,8 +100,8 @@ public class Student {
         this.gender = gender;
     }
 
-    public void viewEnrolledCourses() {
-
+    public List<Course> viewEnrolledCourses() {
+        return courseAPI.getCourses(enrolledCourses);
     }
 
     public void viewAssignments(String courseID) {
@@ -98,9 +112,24 @@ public class Student {
 
     }
 
+
+    // ADD enrolled courses to the print
     @Override
     public String toString() {
-        return String.format("Student [ID = %s, Name = %s, Email = %s, Mobile Number = %s, age = %d, address = %s, gender = %s]"
-                , id, name, email, mobileNumber, age, address, gender);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("Student [ID = %s, Name = %s, Email = %s, Mobile Number = %s, Age = %d, Address = %s, Gender = %s, "
+                , id, name, email, mobileNumber, age, address, gender));
+
+        sb.append("Enrolled courses = ");
+
+        sb.append("[");
+        for (int i = 0; i < enrolledCourses.size(); i++) {
+            sb.append(enrolledCourses.get(i));
+            if(i != enrolledCourses.size()-1) sb.append(", ");
+        }
+        sb.append("]");
+
+        return sb.toString();
     }
 }

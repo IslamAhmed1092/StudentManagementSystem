@@ -1,5 +1,6 @@
 package system;
 
+import system.database.CourseAPI;
 import system.database.StudentAPI;
 import system.database.TeacherAPI;
 
@@ -14,6 +15,7 @@ public class Admin {
     private static long idCounter = 0;
     private final TeacherAPI teacherAPI;
     private final StudentAPI studentAPI;
+    private final CourseAPI courseAPI;
 
     public Admin() {
         this("", "", "");
@@ -30,6 +32,7 @@ public class Admin {
     public Admin(String name, String email, String mobileNumber) {
         teacherAPI = new TeacherAPI();
         studentAPI = new StudentAPI();
+        courseAPI = new CourseAPI();
 
         this.id = String.valueOf(idCounter++);
         this.name = name;
@@ -106,6 +109,30 @@ public class Admin {
     public void updateStudentData(Student student) {
         studentAPI.updateStudentData(student);
     }
+
+
+
+    public void addCourse(String name, String teacherId) {
+        Course course = new Course(name, teacherId);
+        courseAPI.addCourse(course);
+    }
+
+    public void removeCourse(String courseID) {
+        courseAPI.removeCourse(courseID);
+    }
+
+    public Course viewCourseDetails(String courseID) {
+        return courseAPI.getCourse(courseID);
+    }
+
+    public List<Course> viewAllCourses() {
+        return courseAPI.getCourses();
+    }
+
+    public void updateCoursesData(Course course) {
+        courseAPI.updateCourseData(course);
+    }
+
 
     @Override
     public String toString() {

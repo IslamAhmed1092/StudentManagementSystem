@@ -3,10 +3,10 @@ package system;
 import java.util.Date;
 
 public class Assignment {
-    String id;
-    String description;
-    String courseId;
-    Date dueDate;
+    private String id;
+    private String description;
+    private String courseId;
+    private Date dueDate;
 
     public String getId() {
         return id;
