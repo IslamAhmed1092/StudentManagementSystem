@@ -111,6 +111,10 @@ public class Teacher {
         courseAPI.submitCourseAttendance(courseAttendances);
     }
 
+    public void assignStudentToCourse(String studentID, String courseID) {
+        studentAPI.assignStudentToCourse(studentID, courseID);
+    }
+
     @Override
     public String toString() {
         return String.format("Teacher [ID = %s, Name = %s, Email = %s, Mobile Number = %s]", id, name, email, mobileNumber);

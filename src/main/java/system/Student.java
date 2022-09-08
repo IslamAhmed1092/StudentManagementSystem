@@ -117,7 +117,10 @@ public class Student {
     }
 
 
-    // ADD enrolled courses to the print
+    public void enrollToCourse(String courseID) {
+        enrolledCourses.add(courseID);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -132,7 +135,7 @@ public class Student {
             sb.append(enrolledCourses.get(i));
             if(i != enrolledCourses.size()-1) sb.append(", ");
         }
-        sb.append("]");
+        sb.append("]]");
 
         return sb.toString();
     }

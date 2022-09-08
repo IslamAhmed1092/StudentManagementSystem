@@ -1,6 +1,8 @@
 package system;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Assignment {
     private String id;
@@ -8,7 +10,7 @@ public class Assignment {
     private String courseId;
     private Date dueDate;
 
-    private AssignmentSubmission assignmentSubmission;
+    private List<AssignmentSubmission> assignmentSubmissions;
 
     private static long idCounter = 0;
 
@@ -17,15 +19,16 @@ public class Assignment {
         this.description = description;
         this.courseId = courseId;
         this.dueDate = dueDate;
-        this.assignmentSubmission = null;
+        this.assignmentSubmissions = new ArrayList<>();
     }
 
+    @SuppressWarnings("IncompleteCopyConstructor")
     public Assignment(Assignment other) {
         this.id = other.id;
         this.description = other.description;
         this.courseId = other.courseId;
         this.dueDate = other.dueDate;
-        this.assignmentSubmission = other.assignmentSubmission;
+        this.assignmentSubmissions = new ArrayList<>(other.assignmentSubmissions);
     }
 
     public String getId() {
@@ -56,12 +59,31 @@ public class Assignment {
         this.dueDate = dueDate;
     }
 
-    public AssignmentSubmission getAssignmentSubmission() {
-        return assignmentSubmission;
+    public List<AssignmentSubmission> getAssignmentSubmissions() {
+        return assignmentSubmissions;
     }
 
     public void submitAssignment(AssignmentSubmission assignmentSubmission) {
-        this.assignmentSubmission = assignmentSubmission;
+        this.assignmentSubmissions.add(assignmentSubmission);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("Assignment [ID = %s, description = %s, Course ID = %s, Due Date = %s, ", id, description, courseId, dueDate.toString()));
+
+        sb.append("submissions = ");
+
+        sb.append("[");
+        for (int i = 0; i < assignmentSubmissions.size(); i++) {
+            sb.append("[");
+            sb.append(assignmentSubmissions.get(i));
+            sb.append("]");
+            if(i != assignmentSubmissions.size()-1) sb.append(", ");
+        }
+        sb.append("]]");
+
+        return sb.toString();
+    }
 }

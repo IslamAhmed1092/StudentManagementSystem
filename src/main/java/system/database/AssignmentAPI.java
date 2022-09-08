@@ -5,6 +5,8 @@ import system.AssignmentSubmission;
 import system.Teacher;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,14 +20,18 @@ public class AssignmentAPI {
     public void addAssignment(Assignment assignment) {
         List<Assignment> courseAssignments =  db.assignments.get(assignment.getCourseId());
         if(courseAssignments == null) {
-            courseAssignments = new ArrayList<>();
+            db.assignments.put(assignment.getCourseId(), new ArrayList<>(Collections.singletonList(assignment)));
+        } else {
+            courseAssignments.add(assignment);
         }
-
-        courseAssignments.add(assignment);
     }
 
     public List<Assignment> getAssignments(String courseID) {
-        return db.assignments.get(courseID).stream().map(Assignment::new).collect(Collectors.toList());
+        List<Assignment> assignments = db.assignments.get(courseID);
+        if(assignments != null)
+            return assignments.stream().map(Assignment::new).collect(Collectors.toList());
+        else
+            return new ArrayList<>();
     }
 
     public void submitAssignment(AssignmentSubmission assignmentSubmission) {

@@ -1,5 +1,6 @@
 package system.database;
 
+import system.Course;
 import system.Student;
 import system.Teacher;
 
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 
 public class StudentAPI {
     private final Database db;
+
 
     public StudentAPI() {
         this.db = Database.getInstance();
@@ -37,4 +39,8 @@ public class StudentAPI {
             db.students.put(student.getId(), student);
     }
 
+    public void assignStudentToCourse(String studentID, String courseID) {
+        db.students.get(studentID).enrollToCourse(courseID);
+        db.courses.get(courseID).enrollStudent(studentID);
+    }
 }

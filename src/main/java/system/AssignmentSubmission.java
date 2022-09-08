@@ -94,4 +94,8 @@ public class AssignmentSubmission {
         this.assignmentMarks = assignmentMarks;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Assignment Submission [ID = %s, Assignment ID = %s, Student ID = %s, Course ID = %s, Content = %s", id, assignmentId, studentId, courseId, assignmentContentSubmitted);
+    }
 }

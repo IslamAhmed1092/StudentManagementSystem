@@ -17,6 +17,7 @@ public class Course {
         this.id = String.valueOf(idCounter++);
         this.name = name;
         this.teacherID = teacherID;
+        students = new ArrayList<>();
     }
 
     @SuppressWarnings({"IncompleteCopyConstructor"})
@@ -51,12 +52,15 @@ public class Course {
     public List<String> getStudents() {
         return students;
     }
+    public void enrollStudent(String studentID) {
+        students.add(studentID);
+    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("Course [ID = %s, Name = %s, teacher_id = %s", id, name, teacherID));
+        sb.append(String.format("Course [ID = %s, Name = %s, Teacher ID = %s, ", id, name, teacherID));
 
         sb.append("students = ");
 
@@ -65,7 +69,7 @@ public class Course {
             sb.append(students.get(i));
             if(i != students.size()-1) sb.append(", ");
         }
-        sb.append("]");
+        sb.append("]]");
 
         return sb.toString();
     }
