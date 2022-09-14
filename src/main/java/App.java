@@ -110,7 +110,7 @@ public class App {
         System.out.println();
 
         System.out.println(Colors.CYAN_BOLD_BRIGHT + "3. removing teacher with id 2\n" + Colors.RESET);
-        admin1.removeTeacher("2");
+        admin1.removeTeacher("3");
 
         System.out.println("list after removing: ");
         List<Teacher> teachers2 = admin1.viewAllTeachers();
@@ -121,18 +121,18 @@ public class App {
 
         System.out.println();
 
-        System.out.println(Colors.CYAN_BOLD_BRIGHT + "4. viewing teacher details for id 1 and 2\n" + Colors.RESET);
-        System.out.println(admin1.viewTeacherDetails("1"));
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "4. viewing teacher details for id 2 and 3\n" + Colors.RESET);
         System.out.println(admin1.viewTeacherDetails("2"));
+        System.out.println(admin1.viewTeacherDetails("3"));
 
         System.out.println();
 
 
-        System.out.println(Colors.CYAN_BOLD_BRIGHT + "5. updating name of teacher with id 0\n" + Colors.RESET);
-        Teacher teacher0 = admin1.viewTeacherDetails("0");
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "5. updating name of teacher with id 1\n" + Colors.RESET);
+        Teacher teacher0 = admin1.viewTeacherDetails("1");
         teacher0.setName("updated teacher");
         admin1.updateTeacherData(teacher0);
-        System.out.println(admin1.viewTeacherDetails("0"));
+        System.out.println(admin1.viewTeacherDetails("1"));
 
         System.out.println();
 
@@ -155,9 +155,9 @@ public class App {
 
         System.out.println();
 
-        System.out.println(Colors.CYAN_BOLD_BRIGHT + "8. removing student with id 2\n" + Colors.RESET);
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "8. removing student with id 7\n" + Colors.RESET);
 
-        admin2.removeStudent("2");
+        admin2.removeStudent("7");
 
         System.out.println("list after removing: ");
         List<Student> students2 = admin2.viewAllStudents();
@@ -168,26 +168,26 @@ public class App {
 
         System.out.println();
 
-        System.out.println(Colors.CYAN_BOLD_BRIGHT + "9. viewing student details for id 1 and 2\n" + Colors.RESET);
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "9. viewing student details for id 6 and 7\n" + Colors.RESET);
 
-        System.out.println(admin2.viewStudentDetails("1"));
-        System.out.println(admin2.viewStudentDetails("2"));
+        System.out.println(admin2.viewStudentDetails("6"));
+        System.out.println(admin2.viewStudentDetails("7"));
 
         System.out.println();
 
-        System.out.println(Colors.CYAN_BOLD_BRIGHT + "10. updating name of student with id 0\n" + Colors.RESET);
-        Student student2 = admin2.viewStudentDetails("0");
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "10. updating name of student with id 5\n" + Colors.RESET);
+        Student student2 = admin2.viewStudentDetails("5");
         student2.setName("updated student");
         admin2.updateStudentData(student2);
-        System.out.println(admin2.viewStudentDetails("0"));
+        System.out.println(admin2.viewStudentDetails("5"));
 
         System.out.println();
 
 
         System.out.println(Colors.CYAN_BOLD_BRIGHT + "11. adding 3 courses\n" + Colors.RESET);
-        admin2.addCourse("Maths", "0");
-        admin2.addCourse("Database", "1");
-        admin2.addCourse("Software Engineering", "0");
+        admin2.addCourse("Maths", "1");
+        admin2.addCourse("Database", "2");
+        admin2.addCourse("Software Engineering", "1");
 
         System.out.println();
 
@@ -203,11 +203,11 @@ public class App {
         System.out.println("\n\n####################" + Colors.RED_BOLD_BRIGHT + " Testing Teacher " + Colors.RESET + "#######################\n\n");
 
         System.out.println(Colors.CYAN_BOLD_BRIGHT + "1. assigning students to courses\n" + Colors.RESET);
-        Teacher teacher = admin1.viewTeacherDetails("0");
-        teacher.assignStudentToCourse("0", "1");
-        teacher.assignStudentToCourse("0", "2");
-        teacher.assignStudentToCourse("1", "0");
-        teacher.assignStudentToCourse("1", "1");
+        Teacher teacher = admin1.viewTeacherDetails("1");
+        teacher.assignStudentToCourse("5", "1");
+        teacher.assignStudentToCourse("5", "2");
+        teacher.assignStudentToCourse("6", "0");
+        teacher.assignStudentToCourse("6", "1");
 
 
         System.out.println(Colors.CYAN_BOLD_BRIGHT + "2. viewing assigned classes for students\n" + Colors.RESET);
@@ -227,8 +227,8 @@ public class App {
         }
         System.out.println();
 
-        System.out.println(Colors.CYAN_BOLD_BRIGHT + "5. getting student 1 data\n" + Colors.RESET);
-        System.out.println(teacher.getStudentData("1"));
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "5. getting student 6 data\n" + Colors.RESET);
+        System.out.println(teacher.getStudentData("6"));
         System.out.println();
 
         System.out.println(Colors.CYAN_BOLD_BRIGHT + "6. adding 3 assignments\n" + Colors.RESET);
@@ -244,18 +244,18 @@ public class App {
 
         System.out.println(Colors.CYAN_BOLD_BRIGHT + "7. submitting students attendance\n" + Colors.RESET);
         List<CourseAttendance> attendances = new ArrayList<>();
-        attendances.add(new CourseAttendance("0", "1", new Date(), "attended"));
-        attendances.add(new CourseAttendance("1", "0", new Date(), "attended"));
-        attendances.add(new CourseAttendance("1", "1", new Date(), "absent"));
-        attendances.add(new CourseAttendance("2", "0", new Date(), "attended"));
+        attendances.add(new CourseAttendance("0", "6", new Date(), "attended"));
+        attendances.add(new CourseAttendance("1", "5", new Date(), "attended"));
+        attendances.add(new CourseAttendance("1", "6", new Date(), "absent"));
+        attendances.add(new CourseAttendance("2", "5", new Date(), "attended"));
 
         teacher.submitStudentsAttendance(attendances);
 
 
         System.out.println("\n\n####################" + Colors.RED_BOLD_BRIGHT + " Testing Student " + Colors.RESET + "#######################\n\n");
-        Student student = admin1.viewStudentDetails("0");
+        Student student = admin1.viewStudentDetails("5");
 
-        System.out.println(Colors.CYAN_BOLD_BRIGHT + "1. viewing enrolled courses for student 0\n" + Colors.RESET);
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "1. viewing enrolled courses for student 5\n" + Colors.RESET);
         for (Course course : student.viewEnrolledCourses()) {
             System.out.println(course);
         }

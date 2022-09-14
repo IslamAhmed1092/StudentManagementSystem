@@ -6,17 +6,7 @@ import system.database.StudentAPI;
 
 import java.util.List;
 
-public class Teacher {
-
-    private String id;
-
-    private String name;
-
-    private String email;
-
-    private static long idCounter = 0;
-
-    private String mobileNumber;
+public class Teacher extends User {
 
     private final StudentAPI studentAPI;
     private final CourseAPI courseAPI;
@@ -35,21 +25,14 @@ public class Teacher {
     }
 
     public Teacher(String name, String email, String mobileNumber) {
+        super(name, email, mobileNumber);
         this.studentAPI = new StudentAPI();
         this.courseAPI = new CourseAPI();
         this.assignmentAPI = new AssignmentAPI();
-
-        this.id = String.valueOf(idCounter++);
-        this.name = name;
-        this.email = email;
-        this.mobileNumber = mobileNumber;
     }
 
     public Teacher(Teacher other) {
-        this.id = other.id;
-        this.name = other.name;
-        this.email = other.email;
-        this.mobileNumber = other.mobileNumber;
+        super(other);
         this.studentAPI = other.studentAPI;
         this.courseAPI = other.courseAPI;
         this.assignmentAPI = other.assignmentAPI;
@@ -59,29 +42,6 @@ public class Teacher {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
 
     public void viewStudentsAssignedClasses() {
         List<Student> students = studentAPI.getAll();

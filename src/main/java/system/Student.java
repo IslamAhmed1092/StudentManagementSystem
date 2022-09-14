@@ -6,28 +6,20 @@ import system.database.CourseAPI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student {
+public class Student extends User {
 
-    private String id;
-    private String name;
-    private String email;
-    private String mobileNumber;
     private int age;
     private String address;
     private String gender;
 
     private List<String> enrolledCourses;
-    private static long idCounter = 0;
 
     private final CourseAPI courseAPI;
     private final AssignmentAPI assignmentAPI;
 
 
     public Student(String name, String email, String mobileNumber, int age, String address, String gender) {
-        this.id = String.valueOf(idCounter++);
-        this.name = name;
-        this.email = email;
-        this.mobileNumber = mobileNumber;
+        super(name, email, mobileNumber);
         this.age = age;
         this.address = address;
         this.gender = gender;
@@ -40,44 +32,13 @@ public class Student {
 
     @SuppressWarnings({"IncompleteCopyConstructor"})
     public Student(Student other) {
-        this.id = other.id;
-        this.name = other.name;
-        this.email = other.email;
-        this.mobileNumber = other.mobileNumber;
+        super(other);
         this.age = other.age;
         this.address = other.address;
         this.gender = other.gender;
         this.enrolledCourses = new ArrayList<>(other.enrolledCourses);
         this.courseAPI = new CourseAPI();
         this.assignmentAPI = new AssignmentAPI();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
     }
 
     public int getAge() {

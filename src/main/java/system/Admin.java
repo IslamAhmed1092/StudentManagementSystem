@@ -6,13 +6,8 @@ import system.database.TeacherAPI;
 
 import java.util.List;
 
-public class Admin {
-    private String id;
-    private String name;
-    private String email;
-    private String mobileNumber;
+public class Admin extends User{
 
-    private static long idCounter = 0;
     private final TeacherAPI teacherAPI;
     private final StudentAPI studentAPI;
     private final CourseAPI courseAPI;
@@ -30,42 +25,12 @@ public class Admin {
     }
 
     public Admin(String name, String email, String mobileNumber) {
+        super(name, email, mobileNumber);
+
         teacherAPI = new TeacherAPI();
         studentAPI = new StudentAPI();
         courseAPI = new CourseAPI();
 
-        this.id = String.valueOf(idCounter++);
-        this.name = name;
-        this.email = email;
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
     }
 
     public void addTeacher(String name, String email, String mobileNumber) {
@@ -109,7 +74,6 @@ public class Admin {
     public void updateStudentData(Student student) {
         studentAPI.update(student);
     }
-
 
 
     public void addCourse(String name, String teacherId) {

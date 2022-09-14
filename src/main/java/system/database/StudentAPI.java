@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 public class StudentAPI implements ApiServices<Student> {
     private final Database db;
 
-
     public StudentAPI() {
         this.db = Database.getInstance();
     }
