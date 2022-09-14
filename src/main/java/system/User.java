@@ -1,6 +1,6 @@
 package system;
 
-public class User {
+public abstract class User {
 
     protected String id;
 
@@ -52,4 +52,6 @@ public class User {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+
+    public abstract void displayUI();
 }

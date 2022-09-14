@@ -5,6 +5,8 @@ import system.*;
 import java.util.*;
 
 class Database {
+
+    public Map<String, Admin> admins;
     public Map<String, Teacher> teachers;
     public Map<String, Student> students;
 
@@ -17,6 +19,7 @@ class Database {
     private static Database db = null;
 
     private Database() {
+        admins = new HashMap<>();
         teachers = new HashMap<>();
         students = new HashMap<>();
         courses = new HashMap<>();

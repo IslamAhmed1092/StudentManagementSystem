@@ -6,7 +6,7 @@ import system.database.TeacherAPI;
 
 import java.util.List;
 
-public class Admin extends User{
+public class Admin extends User {
 
     private final TeacherAPI teacherAPI;
     private final StudentAPI studentAPI;
@@ -31,6 +31,18 @@ public class Admin extends User{
         studentAPI = new StudentAPI();
         courseAPI = new CourseAPI();
 
+    }
+
+    @Override
+    public void displayUI() {
+
+    }
+
+    public Admin(Admin other) {
+        super(other);
+        this.studentAPI = other.studentAPI;
+        this.courseAPI = other.courseAPI;
+        this.teacherAPI = other.teacherAPI;
     }
 
     public void addTeacher(String name, String email, String mobileNumber) {

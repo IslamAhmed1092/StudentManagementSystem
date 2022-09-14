@@ -42,6 +42,11 @@ public class Teacher extends User {
         return id;
     }
 
+    @Override
+    public void displayUI() {
+
+    }
+
 
     public void viewStudentsAssignedClasses() {
         List<Student> students = studentAPI.getAll();
