@@ -84,7 +84,7 @@ public class Teacher {
     }
 
     public void viewStudentsAssignedClasses() {
-        List<Student> students = studentAPI.getStudents();
+        List<Student> students = studentAPI.getAll();
 
         for (Student student : students) {
             System.out.println(student);
@@ -96,15 +96,15 @@ public class Teacher {
     }
 
     public List<Course> getAllClasses() {
-        return courseAPI.getCourses();
+        return courseAPI.getAll();
     }
 
     public Student getStudentData(String studentId) {
-        return studentAPI.getStudent(studentId);
+        return studentAPI.get(studentId);
     }
 
     public void addAssignment(Assignment assignment) {
-        assignmentAPI.addAssignment(assignment);
+        assignmentAPI.add(assignment);
     }
 
     public void submitStudentsAttendance(List<CourseAttendance> courseAttendances) {

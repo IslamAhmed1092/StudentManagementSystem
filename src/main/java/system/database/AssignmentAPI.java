@@ -10,14 +10,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AssignmentAPI {
+public class AssignmentAPI{
     private final Database db;
 
     public AssignmentAPI() {
         this.db = Database.getInstance();
     }
 
-    public void addAssignment(Assignment assignment) {
+    public void add(Assignment assignment) {
         List<Assignment> courseAssignments =  db.assignments.get(assignment.getCourseId());
         if(courseAssignments == null) {
             db.assignments.put(assignment.getCourseId(), new ArrayList<>(Collections.singletonList(assignment)));
@@ -26,7 +26,7 @@ public class AssignmentAPI {
         }
     }
 
-    public List<Assignment> getAssignments(String courseID) {
+    public List<Assignment> getCourseAssignments(String courseID) {
         List<Assignment> assignments = db.assignments.get(courseID);
         if(assignments != null)
             return assignments.stream().map(Assignment::new).collect(Collectors.toList());

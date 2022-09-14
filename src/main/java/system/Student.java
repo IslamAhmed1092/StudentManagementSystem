@@ -109,7 +109,7 @@ public class Student {
     }
 
     public List<Assignment> viewAssignments(String courseID) {
-        return assignmentAPI.getAssignments(courseID);
+        return assignmentAPI.getCourseAssignments(courseID);
     }
 
     public void submitAssignment(AssignmentSubmission assignmentSubmission) {

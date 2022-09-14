@@ -70,67 +70,67 @@ public class Admin {
 
     public void addTeacher(String name, String email, String mobileNumber) {
         Teacher teacher = new Teacher(name, email, mobileNumber);
-        teacherAPI.addTeacher(teacher);
+        teacherAPI.add(teacher);
     }
 
     public void removeTeacher(String teacherID) {
-        teacherAPI.removeTeacher(teacherID);
+        teacherAPI.remove(teacherID);
     }
 
     public Teacher viewTeacherDetails(String teacherID) {
-        return teacherAPI.getTeacher(teacherID);
+        return teacherAPI.get(teacherID);
     }
 
     public List<Teacher> viewAllTeachers() {
-        return teacherAPI.getTeachers();
+        return teacherAPI.getAll();
     }
 
     public void updateTeacherData(Teacher teacher) {
-        teacherAPI.updateTeacherData(teacher);
+        teacherAPI.update(teacher);
     }
 
     public void addStudent(String name, String email, String mobileNumber, int age, String address, String gender) {
         Student student = new Student(name, email, mobileNumber, age, address, gender);
-        studentAPI.addStudent(student);
+        studentAPI.add(student);
     }
 
     public void removeStudent(String studentID) {
-        studentAPI.removeStudent(studentID);
+        studentAPI.remove(studentID);
     }
 
     public Student viewStudentDetails(String studentID) {
-        return studentAPI.getStudent(studentID);
+        return studentAPI.get(studentID);
     }
 
     public List<Student> viewAllStudents() {
-        return studentAPI.getStudents();
+        return studentAPI.getAll();
     }
 
     public void updateStudentData(Student student) {
-        studentAPI.updateStudentData(student);
+        studentAPI.update(student);
     }
 
 
 
     public void addCourse(String name, String teacherId) {
         Course course = new Course(name, teacherId);
-        courseAPI.addCourse(course);
+        courseAPI.add(course);
     }
 
     public void removeCourse(String courseID) {
-        courseAPI.removeCourse(courseID);
+        courseAPI.remove(courseID);
     }
 
     public Course viewCourseDetails(String courseID) {
-        return courseAPI.getCourse(courseID);
+        return courseAPI.get(courseID);
     }
 
     public List<Course> viewAllCourses() {
-        return courseAPI.getCourses();
+        return courseAPI.getAll();
     }
 
     public void updateCoursesData(Course course) {
-        courseAPI.updateCourseData(course);
+        courseAPI.update(course);
     }
 
 

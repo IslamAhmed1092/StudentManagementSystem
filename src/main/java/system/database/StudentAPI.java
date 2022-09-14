@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StudentAPI {
+public class StudentAPI implements ApiServices<Student> {
     private final Database db;
 
 
@@ -16,25 +16,25 @@ public class StudentAPI {
         this.db = Database.getInstance();
     }
 
-    public void addStudent(Student student) {
+    public void add(Student student) {
         db.students.put(student.getId(), student);
     }
 
-    public void removeStudent(String studentID) {
+    public void remove(String studentID) {
         db.students.remove(studentID);
     }
 
-    public Student getStudent(String studentID) {
+    public Student get(String studentID) {
         Student student = db.students.get(studentID);
 
         return (student!=null)? new Student(student) : null;
     }
 
-    public List<Student> getStudents() {
+    public List<Student> getAll() {
         return db.students.values().stream().map(Student::new).collect(Collectors.toList());
     }
 
-    public void updateStudentData(Student student) {
+    public void update(Student student) {
         if(db.students.containsKey(student.getId()))
             db.students.put(student.getId(), student);
     }
