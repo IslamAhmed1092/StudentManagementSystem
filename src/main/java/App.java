@@ -62,7 +62,8 @@ public class App {
             try {
                 userType = Integer.parseInt(in);
             } catch (Exception e) {
-                continue;
+
+                continue; and 
             }
 
             if(userType != 0 && userType != 1 && userType != 2 && userType != 3) continue;
@@ -95,6 +96,7 @@ public class App {
             try {
                 userType = Integer.parseInt(in);
             } catch (Exception e) {
+//Can we notify that he entered bad number 
                 continue;
             }
 
