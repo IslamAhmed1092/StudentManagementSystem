@@ -49,6 +49,7 @@ public class Teacher extends User {
     public void displayUI() {
 
     }
+// We can extract the follwing methods in UI util class  to be generic for all the data classes 
 
 
     public void viewStudentsAssignedClasses() {
