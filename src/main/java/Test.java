@@ -1,4 +1,10 @@
-import system.*;
+import model.Assignment;
+import model.AssignmentSubmission;
+import model.Course;
+import model.CourseAttendance;
+import user.Admin;
+import user.Student;
+import user.Teacher;
 
 import java.util.ArrayList;
 import java.util.Calendar;

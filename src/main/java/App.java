@@ -1,11 +1,11 @@
-import system.Admin;
-import system.Student;
-import system.Teacher;
-import system.User;
-import system.database.PublicAPI;
-import system.UserFactory;
-import system.ui.UserUI;
-import system.ui.UserUIFactory;
+import user.Admin;
+import user.Student;
+import user.Teacher;
+import user.User;
+import database.PublicAPI;
+import user.UserFactory;
+import ui.UserUI;
+import ui.UserUIFactory;
 
 import java.util.Scanner;
 
