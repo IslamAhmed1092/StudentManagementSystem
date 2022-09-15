@@ -1,5 +1,7 @@
 package database;
-
+// This class name as common used as repository
+// And all of its implementations suffexed with Impl
+// Excellent  good work my bro
 
 import java.util.List;
 
