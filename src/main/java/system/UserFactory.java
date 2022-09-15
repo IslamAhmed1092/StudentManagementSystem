@@ -1,6 +1,7 @@
-package system.database;
+package system;
 
 import system.User;
+import system.database.PublicAPI;
 
 public class UserFactory {
     public User getUser(int userType, String id) {

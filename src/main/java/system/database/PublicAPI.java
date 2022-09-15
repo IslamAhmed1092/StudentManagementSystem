@@ -25,4 +25,19 @@ public class PublicAPI {
 
         return (student!=null)? new Student(student) : null;
     }
+
+    public static void addAdmin(Admin admin) {
+        db.admins.put(admin.getId(), admin);
+    }
+
+
+    public static void addTeacher(Teacher teacher) {
+        db.teachers.put(teacher.getId(), teacher);
+    }
+
+
+    public static void addStudent(Student student) {
+        db.students.put(student.getId(), student);
+    }
+
 }

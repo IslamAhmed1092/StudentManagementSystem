@@ -3,7 +3,9 @@ import system.Student;
 import system.Teacher;
 import system.User;
 import system.database.PublicAPI;
-import system.database.UserFactory;
+import system.UserFactory;
+import system.ui.UserUI;
+import system.ui.UserUIFactory;
 
 import java.util.Scanner;
 
@@ -86,7 +88,7 @@ public class App {
     }
 
 
-    private static Admin systemAdmin = new Admin();
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("\n\n\t\t\t\t\t\t\t\t" + Test.Colors.RED_BOLD_BRIGHT + " Welcome to the System" + Test.Colors.RESET);
@@ -96,11 +98,8 @@ public class App {
 
     private static void startApplication() {
 
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
-            System.out.println(Colors.RESET + "\nEnter the number of the command" + Colors.RESET);
-            System.out.println(Colors.CYAN_BOLD_BRIGHT + "1. Login" + Colors.RESET);
+            System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n1. Login" + Colors.RESET);
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "2. Sign up" + Colors.RESET);
 
             String in = scanner.nextLine();
@@ -131,6 +130,7 @@ public class App {
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "1. Admin" + Colors.RESET);
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "2. Teacher" + Colors.RESET);
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "3. Student" + Colors.RESET);
+            System.out.println(Colors.CYAN_BOLD_BRIGHT + "0. back" + Colors.RESET);
 
             String in = scanner.nextLine();
             int userType;
@@ -140,21 +140,138 @@ public class App {
                 continue;
             }
 
-            if(userType != 1 && userType != 2 && userType != 3) continue;
+            if(userType != 0 && userType != 1 && userType != 2 && userType != 3) continue;
+
+            if(userType == 0) break;
 
             System.out.println(Colors.CYAN_BOLD_BRIGHT + "Enter your id: " + Colors.RESET);
             String id = scanner.nextLine();
 
-
             UserFactory userFactory = new UserFactory();
             User user = userFactory.getUser(userType, id);
-            user.displayUI();
+
+            UserUIFactory userUIFactory = new UserUIFactory();
+            UserUI userUI = userUIFactory.getUserUI(userType);
+            userUI.start(user);
         }
     }
 
     private static void signup() {
-        while(true) {
+
+        loop1: while(true) {
+            System.out.println("\nSign Up as: ");
+            System.out.println(Colors.CYAN_BOLD_BRIGHT + "1. Admin" + Colors.RESET);
+            System.out.println(Colors.CYAN_BOLD_BRIGHT + "2. Teacher" + Colors.RESET);
+            System.out.println(Colors.CYAN_BOLD_BRIGHT + "3. Student" + Colors.RESET);
+            System.out.println(Colors.CYAN_BOLD_BRIGHT + "0. back" + Colors.RESET);
+
+            String in = scanner.nextLine();
+            int userType;
+            try {
+                userType = Integer.parseInt(in);
+            } catch (Exception e) {
+                continue;
+            }
+
+            User user = null;
+            switch (userType) {
+                case 1:
+                    user = createAdmin();
+                    break;
+                case 2:
+                    user = createTeacher();
+                    break;
+                case 3:
+                    user = createStudent();
+                    break;
+                case 0:
+                    break loop1;
+                default:
+                    continue;
+            }
+
+            System.out.println(user);
+            System.out.println();
+
+            UserUIFactory userUIFactory = new UserUIFactory();
+            UserUI userUI = userUIFactory.getUserUI(userType);
+            userUI.start(user);
+
+            break;
 
         }
     }
+
+    private static User createAdmin() {
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n1. Enter your Name" + Colors.RESET);
+        String name = scanner.nextLine();
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n2. Enter your Email" + Colors.RESET);
+        String email = scanner.nextLine();
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n3. Enter your Mobile Number" + Colors.RESET);
+        String mobileNumber = scanner.nextLine();
+
+        Admin admin = new Admin(name, email, mobileNumber);
+
+        PublicAPI.addAdmin(admin);
+
+        return admin;
+    }
+
+    private static User createTeacher() {
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n1. Enter your Name" + Colors.RESET);
+        String name = scanner.nextLine();
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n2. Enter your Email" + Colors.RESET);
+        String email = scanner.nextLine();
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n3. Enter your Mobile Number" + Colors.RESET);
+        String mobileNumber = scanner.nextLine();
+
+        Teacher teacher = new Teacher(name, email, mobileNumber);
+
+        PublicAPI.addTeacher(teacher);
+
+        return teacher;
+    }
+
+    private static User createStudent() {
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n1. Enter your Name" + Colors.RESET);
+        String name = scanner.nextLine();
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n2. Enter your Email" + Colors.RESET);
+        String email = scanner.nextLine();
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n3. Enter your Mobile Number" + Colors.RESET);
+        String mobileNumber = scanner.nextLine();
+
+
+        int age;
+        while (true) {
+            System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n4. Enter your Age" + Colors.RESET);
+            String ageIn = scanner.nextLine();
+
+            try {
+                age = Integer.parseInt(ageIn);
+                break;
+            } catch (Exception e) {
+                continue;
+            }
+        }
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n5. Enter your Address" + Colors.RESET);
+        String address = scanner.nextLine();
+
+        System.out.println(Colors.CYAN_BOLD_BRIGHT + "\n6. Enter your Gender" + Colors.RESET);
+        String gender = scanner.nextLine();
+
+        Student student = new Student(name, email, mobileNumber, age, address, gender);
+
+        PublicAPI.addStudent(student);
+
+        return student;
+    }
+
 }
