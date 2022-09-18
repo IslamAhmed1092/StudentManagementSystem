@@ -104,8 +104,4 @@ public class Student extends User {
         return sb.toString();
     }
 
-    @Override
-    public void displayUI() {
-
-    }
 }

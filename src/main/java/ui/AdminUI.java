@@ -1,6 +1,8 @@
 package ui;
 
+import database.PublicAPI;
 import user.Admin;
+import user.Student;
 import user.Teacher;
 import user.User;
 import utils.Color;
@@ -31,40 +33,49 @@ public class AdminUI implements UserUI {
             System.out.println(Color.CYAN_BOLD_BRIGHT + "10. Update Student Data" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "0. Log out" + Color.RESET);
 
+
             String in = scanner.nextLine();
 
-            switch (in) {
-                case "1":
+            int command;
+
+            try {
+                command = Integer.parseInt(in);
+            } catch (Exception e) {
+                continue;
+            }
+
+            switch (command) {
+                case 1:
                     addTeacher();
                     break;
-                case "2":
+                case 2:
                     removeTeacher();
                     break;
-                case "3":
+                case 3:
                     viewAllTeachers();
                     break;
-                case "4":
+                case 4:
                     viewTeacherDetails();
                     break;
-                case "5":
+                case 5:
                     updateTeacherData();
                     break;
-                case "6":
+                case 6:
                     addStudent();
                     break;
-                case "7":
+                case 7:
                     removeStudent();
                     break;
-                case "8":
+                case 8:
                     viewAllStudents();
                     break;
-                case "9":
+                case 9:
                     viewStudentDetails();
                     break;
-                case "10":
+                case 10:
                     updateStudentData();
                     break;
-                case "0":
+                case 0:
                     break loop1;
             }
 
@@ -92,6 +103,7 @@ public class AdminUI implements UserUI {
     }
 
     private void viewAllTeachers() {
+        System.out.println();
         for (Teacher teacher: admin.viewAllTeachers()) {
             System.out.println(teacher);
         }
@@ -101,6 +113,7 @@ public class AdminUI implements UserUI {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Teacher ID" + Color.RESET);
         String id = scanner.nextLine();
 
+        System.out.println();
         System.out.println(admin.viewTeacherDetails(id));
     }
 
@@ -121,29 +134,111 @@ public class AdminUI implements UserUI {
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Teacher Mobile Number (blank for no change)" + Color.RESET);
         in = scanner.nextLine();
-        if(!in.isEmpty()) teacher.setName(in);
+        if(!in.isEmpty()) teacher.setMobileNumber(in);
 
 
         admin.updateTeacherData(teacher);
     }
 
     private void addStudent() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Name" + Color.RESET);
+        String name = scanner.nextLine();
 
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Email" + Color.RESET);
+        String email = scanner.nextLine();
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Mobile Number" + Color.RESET);
+        String mobileNumber = scanner.nextLine();
+
+        int age;
+        while (true) {
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Age" + Color.RESET);
+            String ageIn = scanner.nextLine();
+
+            try {
+                age = Integer.parseInt(ageIn);
+                break;
+            } catch (Exception e) {
+                continue;
+            }
+        }
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Address" + Color.RESET);
+        String address = scanner.nextLine();
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Gender" + Color.RESET);
+        String gender = scanner.nextLine();
+
+        admin.addStudent(name, email, mobileNumber, age, address, gender);
     }
 
     private void removeStudent() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
+        String id = scanner.nextLine();
 
+        admin.removeStudent(id);
     }
 
     private void viewAllStudents() {
-
+        System.out.println();
+        for (Student student: admin.viewAllStudents()) {
+            System.out.println(student);
+        }
     }
 
     private void viewStudentDetails() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
+        String id = scanner.nextLine();
 
+        System.out.println();
+        System.out.println(admin.viewStudentDetails(id));
     }
 
     private void updateStudentData() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
+        String id = scanner.nextLine();
 
+        Student student = admin.viewStudentDetails(id);
+        System.out.println(student);
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Name (blank for no change)" + Color.RESET);
+        String in = scanner.nextLine();
+        if(!in.isEmpty()) student.setName(in);
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Email (blank for no change)" + Color.RESET);
+        in = scanner.nextLine();
+        if(!in.isEmpty()) student.setEmail(in);
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Mobile Number (blank for no change)" + Color.RESET);
+        in = scanner.nextLine();
+        if(!in.isEmpty()) student.setMobileNumber(in);
+
+
+        while (true) {
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Age (blank for no change)" + Color.RESET);
+            String ageIn = scanner.nextLine();
+
+            if(ageIn.isEmpty()) break;
+
+            try {
+                int age = Integer.parseInt(ageIn);
+                student.setAge(age);
+                break;
+            } catch (Exception e) {
+                continue;
+            }
+
+        }
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Address (blank for no change)" + Color.RESET);
+        in = scanner.nextLine();
+        if(!in.isEmpty()) student.setAddress(in);
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student Gender (blank for no change)" + Color.RESET);
+        in = scanner.nextLine();
+        if(!in.isEmpty()) student.setGender(in);
+
+
+        admin.updateStudentData(student);
     }
 }

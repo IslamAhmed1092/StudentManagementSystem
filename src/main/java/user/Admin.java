@@ -34,11 +34,6 @@ public class Admin extends User {
 
     }
 
-    @Override
-    public void displayUI() {
-
-    }
-
     public Admin(Admin other) {
         super(other);
         this.studentAPI = other.studentAPI;

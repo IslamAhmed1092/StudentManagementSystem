@@ -53,5 +53,4 @@ public abstract class User {
         this.mobileNumber = mobileNumber;
     }
 
-    public abstract void displayUI();
 }

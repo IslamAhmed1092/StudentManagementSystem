@@ -16,7 +16,7 @@ public class App {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("\n\n\t\t\t\t\t\t\t\t" + Test.Colors.RED_BOLD_BRIGHT + " Welcome to the System" + Test.Colors.RESET);
+        System.out.println("\n\n\t\t\t\t\t\t\t\t" + Color.RED_BOLD_BRIGHT + " Welcome to the System" + Color.RESET);
 
         startApplication();
     }
@@ -74,6 +74,8 @@ public class App {
 
             UserFactory userFactory = new UserFactory();
             User user = userFactory.getUser(userType, id);
+
+            if(user == null) continue;
 
             UserUIFactory userUIFactory = new UserUIFactory();
             UserUI userUI = userUIFactory.getUserUI(userType);
