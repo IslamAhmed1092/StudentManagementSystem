@@ -1,5 +1,6 @@
 package database;
 
+import model.Course;
 import user.Admin;
 import user.Student;
 import user.Teacher;
@@ -38,6 +39,10 @@ public class PublicAPI {
 
     public static void addStudent(Student student) {
         db.students.put(student.getId(), student);
+    }
+
+    public static void addCourse(Course course) {
+        db.courses.put(course.getId(), course);
     }
 
 }

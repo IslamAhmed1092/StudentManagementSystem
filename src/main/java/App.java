@@ -1,3 +1,5 @@
+import model.Assignment;
+import model.Course;
 import user.Admin;
 import user.Student;
 import user.Teacher;
@@ -8,6 +10,8 @@ import ui.UserUI;
 import ui.UserUIFactory;
 import utils.Color;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 @SuppressWarnings("ALL")
@@ -16,9 +20,42 @@ public class App {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("\n\n\t\t\t\t\t\t\t\t" + Color.RED_BOLD_BRIGHT + " Welcome to the System" + Color.RESET);
+        seed();
 
+        System.out.println("\n\n\t\t\t\t\t\t\t\t" + Color.RED_BOLD_BRIGHT + " Welcome to the System" + Color.RESET);
         startApplication();
+    }
+
+    private static void seed() {
+        PublicAPI.addAdmin(new Admin("admin 1", "a1@a.com", "0100"));
+
+        PublicAPI.addTeacher(new Teacher("teacher 1", "e1@e.com", "0111"));
+        PublicAPI.addTeacher(new Teacher("teacher 2", "e2@e.com", "0112"));
+        PublicAPI.addTeacher(new Teacher("teacher 3", "e3@e.com", "0113"));
+
+        PublicAPI.addStudent(new Student("student 1", "", "", 20, "", "M"));
+        PublicAPI.addStudent(new Student("student 2", "", "", 21, "", "F"));
+        PublicAPI.addStudent(new Student("student 3", "", "", 22, "", "M"));
+
+        PublicAPI.addCourse(new Course("Maths", "1"));
+        PublicAPI.addCourse(new Course("Database", "2"));
+        PublicAPI.addCourse(new Course("Software Engineering", "1"));
+
+        Teacher teacher = PublicAPI.getTeacher("1");
+        teacher.assignStudentToCourse("5", "1");
+        teacher.assignStudentToCourse("5", "2");
+        teacher.assignStudentToCourse("6", "0");
+        teacher.assignStudentToCourse("6", "1");
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, 7);
+        teacher.addAssignment(new Assignment("Assignment 1", "0", c.getTime()));
+        c.add(Calendar.DATE, 1);
+        teacher.addAssignment(new Assignment("Assignment 2", "1", c.getTime()));
+        c.add(Calendar.DATE, 1);
+        teacher.addAssignment(new Assignment("Assignment 3", "1", c.getTime()));
+
     }
 
     private static void startApplication() {

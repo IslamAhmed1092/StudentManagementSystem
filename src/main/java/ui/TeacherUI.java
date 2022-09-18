@@ -65,6 +65,7 @@ public class TeacherUI implements UserUI {
                     break;
                 case 7:
                     assignStudentToCourse();
+                    break;
                 case 0:
                     break loop1;
             }
@@ -126,7 +127,7 @@ public class TeacherUI implements UserUI {
             }
         }
 
-        Assignment assignment = new Assignment(courseID, description, dueDate);
+        Assignment assignment = new Assignment(description, courseID, dueDate);
 
         teacher.addAssignment(assignment);
     }
