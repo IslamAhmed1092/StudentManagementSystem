@@ -1,6 +1,7 @@
 package ui;
 
 import database.PublicAPI;
+import exception.NotFoundException;
 import model.Course;
 import user.Admin;
 import user.Student;
@@ -49,54 +50,59 @@ public class AdminUI implements UserUI {
                 continue;
             }
 
-            switch (command) {
-                case 1:
-                    addTeacher();
-                    break;
-                case 2:
-                    removeTeacher();
-                    break;
-                case 3:
-                    viewAllTeachers();
-                    break;
-                case 4:
-                    viewTeacherDetails();
-                    break;
-                case 5:
-                    updateTeacherData();
-                    break;
-                case 6:
-                    addStudent();
-                    break;
-                case 7:
-                    removeStudent();
-                    break;
-                case 8:
-                    viewAllStudents();
-                    break;
-                case 9:
-                    viewStudentDetails();
-                    break;
-                case 10:
-                    updateStudentData();
-                    break;
-                case 11:
-                    addCourse();
-                    break;
-                case 12:
-                    removeCourse();
-                    break;
-                case 13:
-                    viewAllCourses();
-                    break;
-                case 14:
-                    viewCourseDetails();
-                    break;
-                case 15:
-                    updateCourseData();
-                    break;
-                case 0:
-                    break loop1;
+            try {
+                switch (command) {
+                    case 1:
+                        addTeacher();
+                        break;
+                    case 2:
+                        removeTeacher();
+                        break;
+                    case 3:
+                        viewAllTeachers();
+                        break;
+                    case 4:
+                        viewTeacherDetails();
+                        break;
+                    case 5:
+                        updateTeacherData();
+                        break;
+                    case 6:
+                        addStudent();
+                        break;
+                    case 7:
+                        removeStudent();
+                        break;
+                    case 8:
+                        viewAllStudents();
+                        break;
+                    case 9:
+                        viewStudentDetails();
+                        break;
+                    case 10:
+                        updateStudentData();
+                        break;
+                    case 11:
+                        addCourse();
+                        break;
+                    case 12:
+                        removeCourse();
+                        break;
+                    case 13:
+                        viewAllCourses();
+                        break;
+                    case 14:
+                        viewCourseDetails();
+                        break;
+                    case 15:
+                        updateCourseData();
+                        break;
+                    case 0:
+                        break loop1;
+                }
+            } catch (NotFoundException e) {
+                System.out.println(e.getMessage());
+                System.out.println();
             }
 
         }
@@ -115,7 +121,7 @@ public class AdminUI implements UserUI {
         admin.addTeacher(name, email, mobileNumber);
     }
 
-    private void removeTeacher() {
+    private void removeTeacher() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Teacher ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -129,7 +135,7 @@ public class AdminUI implements UserUI {
         }
     }
 
-    private void viewTeacherDetails() {
+    private void viewTeacherDetails() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Teacher ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -137,7 +143,7 @@ public class AdminUI implements UserUI {
         System.out.println(admin.viewTeacherDetails(id));
     }
 
-    private void updateTeacherData() {
+    private void updateTeacherData() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Teacher ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -192,7 +198,7 @@ public class AdminUI implements UserUI {
         admin.addStudent(name, email, mobileNumber, age, address, gender);
     }
 
-    private void removeStudent() {
+    private void removeStudent() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -206,7 +212,7 @@ public class AdminUI implements UserUI {
         }
     }
 
-    private void viewStudentDetails() {
+    private void viewStudentDetails() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -214,7 +220,7 @@ public class AdminUI implements UserUI {
         System.out.println(admin.viewStudentDetails(id));
     }
 
-    private void updateStudentData() {
+    private void updateStudentData() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -272,7 +278,7 @@ public class AdminUI implements UserUI {
         admin.addCourse(name, teacherID);
     }
 
-    private void removeCourse() {
+    private void removeCourse() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -286,7 +292,7 @@ public class AdminUI implements UserUI {
         }
     }
 
-    private void viewCourseDetails() {
+    private void viewCourseDetails() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -294,7 +300,7 @@ public class AdminUI implements UserUI {
         System.out.println(admin.viewCourseDetails(id));
     }
 
-    private void updateCourseData() {
+    private void updateCourseData() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
         String id = scanner.nextLine();
 

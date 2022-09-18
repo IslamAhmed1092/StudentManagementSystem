@@ -1,5 +1,6 @@
 package ui;
 
+import exception.NotFoundException;
 import model.Assignment;
 import model.AssignmentSubmission;
 import model.Course;
@@ -37,18 +38,23 @@ public class StudentUI implements UserUI{
                 continue;
             }
 
-            switch (command) {
-                case 1:
-                    viewEnrolledCourses();
-                    break;
-                case 2:
-                    viewAssignments();
-                    break;
-                case 3:
-                    submitAssignment();
-                    break;
-                case 0:
-                    break loop1;
+            try {
+                switch (command) {
+                    case 1:
+                        viewEnrolledCourses();
+                        break;
+                    case 2:
+                        viewAssignments();
+                        break;
+                    case 3:
+                        submitAssignment();
+                        break;
+                    case 0:
+                        break loop1;
+                }
+            } catch (NotFoundException e) {
+                System.out.println(e.getMessage());
+                System.out.println();
             }
         }
     }
@@ -60,7 +66,7 @@ public class StudentUI implements UserUI{
         }
     }
 
-    private void viewAssignments() {
+    private void viewAssignments() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -69,7 +75,7 @@ public class StudentUI implements UserUI{
         }
     }
 
-    private void submitAssignment() {
+    private void submitAssignment() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
         String courseID = scanner.nextLine();
 

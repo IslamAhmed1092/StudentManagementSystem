@@ -1,9 +1,10 @@
 package user;
 
 import database.PublicAPI;
+import exception.NotFoundException;
 
 public class UserFactory {
-    public User getUser(int userType, String id) {
+    public User getUser(int userType, String id) throws NotFoundException {
         switch (userType) {
             case 1:
                 return PublicAPI.getAdmin(id);

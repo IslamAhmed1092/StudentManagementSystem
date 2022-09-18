@@ -1,3 +1,4 @@
+import exception.NotFoundException;
 import model.Assignment;
 import model.Course;
 import user.Admin;
@@ -41,20 +42,26 @@ public class App {
         PublicAPI.addCourse(new Course("Database", "2"));
         PublicAPI.addCourse(new Course("Software Engineering", "1"));
 
-        Teacher teacher = PublicAPI.getTeacher("1");
-        teacher.assignStudentToCourse("5", "1");
-        teacher.assignStudentToCourse("5", "2");
-        teacher.assignStudentToCourse("6", "0");
-        teacher.assignStudentToCourse("6", "1");
+        Teacher teacher = null;
+        try {
+            teacher = PublicAPI.getTeacher("1");
+            teacher.assignStudentToCourse("5", "1");
+            teacher.assignStudentToCourse("5", "2");
+            teacher.assignStudentToCourse("6", "0");
+            teacher.assignStudentToCourse("6", "1");
 
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.add(Calendar.DATE, 7);
-        teacher.addAssignment(new Assignment("Assignment 1", "0", c.getTime()));
-        c.add(Calendar.DATE, 1);
-        teacher.addAssignment(new Assignment("Assignment 2", "1", c.getTime()));
-        c.add(Calendar.DATE, 1);
-        teacher.addAssignment(new Assignment("Assignment 3", "1", c.getTime()));
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+            c.add(Calendar.DATE, 7);
+            teacher.addAssignment(new Assignment("Assignment 1", "0", c.getTime()));
+            c.add(Calendar.DATE, 1);
+            teacher.addAssignment(new Assignment("Assignment 2", "1", c.getTime()));
+            c.add(Calendar.DATE, 1);
+            teacher.addAssignment(new Assignment("Assignment 3", "1", c.getTime()));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
     }
 
@@ -110,9 +117,14 @@ public class App {
             String id = scanner.nextLine();
 
             UserFactory userFactory = new UserFactory();
-            User user = userFactory.getUser(userType, id);
-
-            if(user == null) continue;
+            User user = null;
+            try {
+                user = userFactory.getUser(userType, id);
+            } catch (NotFoundException e) {
+                System.out.println(e.getMessage());
+                System.out.println();
+                continue;
+            }
 
             UserUIFactory userUIFactory = new UserUIFactory();
             UserUI userUI = userUIFactory.getUserUI(userType);

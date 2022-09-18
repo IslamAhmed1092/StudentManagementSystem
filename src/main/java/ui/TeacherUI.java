@@ -1,5 +1,6 @@
 package ui;
 
+import exception.NotFoundException;
 import model.Assignment;
 import model.Course;
 import model.CourseAttendance;
@@ -44,32 +45,37 @@ public class TeacherUI implements UserUI {
                 continue;
             }
 
-            switch (command) {
-                case 1:
-                    viewStudentsAssignedClasses();
-                    break;
-                case 2:
-                    getStudentsInCourse();
-                    break;
-                case 3:
-                    getAllClasses();
-                    break;
-                case 4:
-                    getStudentData();
-                    break;
-                case 5:
-                    addAssignment();
-                    break;
-                case 6:
-                    submitStudentsAttendance();
-                    break;
-                case 7:
-                    assignStudentToCourse();
-                    break;
-                case 0:
-                    break loop1;
-            }
+            try {
 
+                switch (command) {
+                    case 1:
+                        viewStudentsAssignedClasses();
+                        break;
+                    case 2:
+                        getStudentsInCourse();
+                        break;
+                    case 3:
+                        getAllClasses();
+                        break;
+                    case 4:
+                        getStudentData();
+                        break;
+                    case 5:
+                        addAssignment();
+                        break;
+                    case 6:
+                        submitStudentsAttendance();
+                        break;
+                    case 7:
+                        assignStudentToCourse();
+                        break;
+                    case 0:
+                        break loop1;
+                }
+            } catch (NotFoundException e) {
+                System.out.println(e.getMessage());
+                System.out.println();
+            }
         }
     }
 
@@ -78,7 +84,7 @@ public class TeacherUI implements UserUI {
         teacher.viewStudentsAssignedClasses();
     }
 
-    private void getStudentsInCourse() {
+    private void getStudentsInCourse() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -95,7 +101,7 @@ public class TeacherUI implements UserUI {
         }
     }
 
-    private void getStudentData() {
+    private void getStudentData() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
         String id = scanner.nextLine();
 
@@ -103,7 +109,7 @@ public class TeacherUI implements UserUI {
         System.out.println(teacher.getStudentData(id));
     }
 
-    private void addAssignment() {
+    private void addAssignment() throws NotFoundException {
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
         String courseID = scanner.nextLine();
@@ -183,7 +189,7 @@ public class TeacherUI implements UserUI {
         teacher.submitStudentsAttendance(courseAttendances);
     }
 
-    private void assignStudentToCourse() {
+    private void assignStudentToCourse() throws NotFoundException {
         System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
         String studentID = scanner.nextLine();
 

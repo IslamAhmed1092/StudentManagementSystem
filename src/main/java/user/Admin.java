@@ -1,5 +1,6 @@
 package user;
 
+import exception.NotFoundException;
 import model.Course;
 import database.CourseAPI;
 import database.StudentAPI;
@@ -46,11 +47,11 @@ public class Admin extends User {
         teacherAPI.add(teacher);
     }
 
-    public void removeTeacher(String teacherID) {
+    public void removeTeacher(String teacherID) throws NotFoundException {
         teacherAPI.remove(teacherID);
     }
 
-    public Teacher viewTeacherDetails(String teacherID) {
+    public Teacher viewTeacherDetails(String teacherID) throws NotFoundException {
         return teacherAPI.get(teacherID);
     }
 
@@ -58,7 +59,7 @@ public class Admin extends User {
         return teacherAPI.getAll();
     }
 
-    public void updateTeacherData(Teacher teacher) {
+    public void updateTeacherData(Teacher teacher) throws NotFoundException {
         teacherAPI.update(teacher);
     }
 
@@ -67,11 +68,11 @@ public class Admin extends User {
         studentAPI.add(student);
     }
 
-    public void removeStudent(String studentID) {
+    public void removeStudent(String studentID) throws NotFoundException {
         studentAPI.remove(studentID);
     }
 
-    public Student viewStudentDetails(String studentID) {
+    public Student viewStudentDetails(String studentID) throws NotFoundException {
         return studentAPI.get(studentID);
     }
 
@@ -79,7 +80,7 @@ public class Admin extends User {
         return studentAPI.getAll();
     }
 
-    public void updateStudentData(Student student) {
+    public void updateStudentData(Student student) throws NotFoundException {
         studentAPI.update(student);
     }
 
@@ -89,11 +90,11 @@ public class Admin extends User {
         courseAPI.add(course);
     }
 
-    public void removeCourse(String courseID) {
+    public void removeCourse(String courseID) throws NotFoundException {
         courseAPI.remove(courseID);
     }
 
-    public Course viewCourseDetails(String courseID) {
+    public Course viewCourseDetails(String courseID) throws NotFoundException {
         return courseAPI.get(courseID);
     }
 
@@ -101,7 +102,7 @@ public class Admin extends User {
         return courseAPI.getAll();
     }
 
-    public void updateCourseData(Course course) {
+    public void updateCourseData(Course course) throws NotFoundException {
         courseAPI.update(course);
     }
 

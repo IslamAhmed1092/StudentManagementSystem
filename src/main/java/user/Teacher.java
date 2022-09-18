@@ -1,5 +1,6 @@
 package user;
 
+import exception.NotFoundException;
 import model.Assignment;
 import model.Course;
 import model.CourseAttendance;
@@ -53,7 +54,7 @@ public class Teacher extends User {
         }
     }
 
-    public List<Student> getStudentsInCourse(String courseID) {
+    public List<Student> getStudentsInCourse(String courseID) throws NotFoundException {
         return courseAPI.getStudentsByCourseID(courseID);
     }
 
@@ -61,11 +62,11 @@ public class Teacher extends User {
         return courseAPI.getAll();
     }
 
-    public Student getStudentData(String studentId) {
+    public Student getStudentData(String studentId) throws NotFoundException {
         return studentAPI.get(studentId);
     }
 
-    public void addAssignment(Assignment assignment) {
+    public void addAssignment(Assignment assignment) throws NotFoundException {
         assignmentAPI.add(assignment);
     }
 
@@ -73,7 +74,7 @@ public class Teacher extends User {
         courseAPI.submitCourseAttendance(courseAttendances);
     }
 
-    public void assignStudentToCourse(String studentID, String courseID) {
+    public void assignStudentToCourse(String studentID, String courseID) throws NotFoundException {
         studentAPI.assignStudentToCourse(studentID, courseID);
     }
 

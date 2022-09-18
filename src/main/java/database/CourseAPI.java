@@ -1,5 +1,6 @@
 package database;
 
+import exception.NotFoundException;
 import model.Course;
 import model.CourseAttendance;
 import user.Student;
@@ -20,21 +21,24 @@ public class CourseAPI implements ApiServices<Course>{
         db.courses.put(course.getId(), course);
     }
 
-    public void remove(String courseID) {
-        db.teachers.remove(courseID);
+    public void remove(String courseID) throws NotFoundException {
+        Course course = db.courses.remove(courseID);
+        if(course == null) throw new NotFoundException("Course Not Found");
     }
 
-    public Course get(String courseID) {
+    public Course get(String courseID) throws NotFoundException {
         Course course = db.courses.get(courseID);
 
-        return (course!=null)? new Course(course) : null;
+        if(course == null) throw new NotFoundException("Course Not Found");
+
+        return new Course(course);
     }
 
-    public List<Student> getStudentsByCourseID(String courseID) {
+    public List<Student> getStudentsByCourseID(String courseID) throws NotFoundException {
         Course course = db.courses.get(courseID);
 
         if(course == null)
-            return new ArrayList<>();
+            throw new NotFoundException("Course Not Found");
         else {
             List<Student> courseStudents = course.getStudents().stream().map(db.students::get).filter(Objects::nonNull).collect(Collectors.toList());
             return courseStudents.stream().map(Student::new).collect(Collectors.toList());
@@ -50,14 +54,23 @@ public class CourseAPI implements ApiServices<Course>{
         return db.courses.values().stream().map(Course::new).collect(Collectors.toList());
     }
 
-    public void update(Course course) {
+    public void update(Course course) throws NotFoundException {
         if(db.courses.containsKey(course.getId()))
             db.courses.put(course.getId(), course);
+        else
+            throw new NotFoundException("Course Not Found");
 
     }
 
     public void submitCourseAttendance(List<CourseAttendance> courseAttendances) {
-        db.courseAttendances.addAll(courseAttendances);
+        ArrayList<CourseAttendance> attendances = new ArrayList<>();
+
+        for (CourseAttendance attendance : courseAttendances) {
+            if(db.courses.containsKey(attendance.getCourseId()) && db.students.containsKey(attendance.getStudentId()))
+                attendances.add(attendance);
+        }
+
+        db.courseAttendances.addAll(attendances);
     }
 
 }

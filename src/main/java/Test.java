@@ -1,3 +1,4 @@
+import exception.NotFoundException;
 import model.Assignment;
 import model.AssignmentSubmission;
 import model.Course;
@@ -40,7 +41,12 @@ public class Test {
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "3. removing teacher with id 2\n" + Color.RESET);
-        admin1.removeTeacher("3");
+        try {
+            admin1.removeTeacher("3");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
         System.out.println("list after removing: ");
         List<Teacher> teachers2 = admin1.viewAllTeachers();
@@ -52,17 +58,50 @@ public class Test {
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "4. viewing teacher details for id 2 and 3\n" + Color.RESET);
-        System.out.println(admin1.viewTeacherDetails("2"));
-        System.out.println(admin1.viewTeacherDetails("3"));
+
+        try {
+            System.out.println(admin1.viewTeacherDetails("2"));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+        try {
+            System.out.println(admin1.viewTeacherDetails("3"));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
         System.out.println();
 
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "5. updating name of teacher with id 1\n" + Color.RESET);
-        Teacher teacher0 = admin1.viewTeacherDetails("1");
-        teacher0.setName("updated teacher");
-        admin1.updateTeacherData(teacher0);
-        System.out.println(admin1.viewTeacherDetails("1"));
+        Teacher teacher0 = null;
+        try {
+            teacher0 = admin1.viewTeacherDetails("1");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+        if (teacher0 != null) {
+            teacher0.setName("updated teacher");
+        }
+
+        try {
+            admin1.updateTeacherData(teacher0);
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+        try {
+            System.out.println(admin1.viewTeacherDetails("1"));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
         System.out.println();
 
@@ -87,7 +126,12 @@ public class Test {
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "8. removing student with id 7\n" + Color.RESET);
 
-        admin2.removeStudent("7");
+        try {
+            admin2.removeStudent("7");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
         System.out.println("list after removing: ");
         List<Student> students2 = admin2.viewAllStudents();
@@ -100,16 +144,48 @@ public class Test {
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "9. viewing student details for id 6 and 7\n" + Color.RESET);
 
-        System.out.println(admin2.viewStudentDetails("6"));
-        System.out.println(admin2.viewStudentDetails("7"));
+        try {
+            System.out.println(admin2.viewStudentDetails("6"));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+        try {
+            System.out.println(admin2.viewStudentDetails("7"));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "10. updating name of student with id 5\n" + Color.RESET);
-        Student student2 = admin2.viewStudentDetails("5");
-        student2.setName("updated student");
-        admin2.updateStudentData(student2);
-        System.out.println(admin2.viewStudentDetails("5"));
+        Student student2 = null;
+        try {
+            student2 = admin2.viewStudentDetails("5");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+        if (student2 != null) {
+            student2.setName("updated student");
+        }
+
+        try {
+            admin2.updateStudentData(student2);
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+        try {
+            System.out.println(admin2.viewStudentDetails("5"));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
         System.out.println();
 
@@ -133,11 +209,25 @@ public class Test {
         System.out.println("\n\n####################" + Color.RED_BOLD_BRIGHT + " Testing Teacher " + Color.RESET + "#######################\n\n");
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "1. assigning students to courses\n" + Color.RESET);
-        Teacher teacher = admin1.viewTeacherDetails("1");
-        teacher.assignStudentToCourse("5", "1");
-        teacher.assignStudentToCourse("5", "2");
-        teacher.assignStudentToCourse("6", "0");
-        teacher.assignStudentToCourse("6", "1");
+
+        Teacher teacher = null;
+        try {
+            teacher = admin1.viewTeacherDetails("1");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+        assert teacher != null;
+        try {
+            teacher.assignStudentToCourse("5", "1");
+            teacher.assignStudentToCourse("5", "2");
+            teacher.assignStudentToCourse("6", "0");
+            teacher.assignStudentToCourse("6", "1");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "2. viewing assigned classes for students\n" + Color.RESET);
@@ -145,9 +235,15 @@ public class Test {
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "3. getting student in course 2\n" + Color.RESET);
-        for (Student student : teacher.getStudentsInCourse("2")) {
-            System.out.println(student);
+        try {
+            for (Student student : teacher.getStudentsInCourse("2")) {
+                System.out.println(student);
+            }
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
         }
+
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "4. getting all classes\n" + Color.RESET);
@@ -158,18 +254,31 @@ public class Test {
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "5. getting student 6 data\n" + Color.RESET);
-        System.out.println(teacher.getStudentData("6"));
+
+        try {
+            System.out.println(teacher.getStudentData("6"));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "6. adding 3 assignments\n" + Color.RESET);
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.add(Calendar.DATE, 7);
-        teacher.addAssignment(new Assignment("Assignment 1", "0", c.getTime()));
-        c.add(Calendar.DATE, 1);
-        teacher.addAssignment(new Assignment("Assignment 2", "1", c.getTime()));
-        c.add(Calendar.DATE, 1);
-        teacher.addAssignment(new Assignment("Assignment 3", "1", c.getTime()));
+
+        try {
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+            c.add(Calendar.DATE, 7);
+            teacher.addAssignment(new Assignment("Assignment 1", "0", c.getTime()));
+            c.add(Calendar.DATE, 1);
+            teacher.addAssignment(new Assignment("Assignment 2", "1", c.getTime()));
+            c.add(Calendar.DATE, 1);
+            teacher.addAssignment(new Assignment("Assignment 3", "1", c.getTime()));
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "7. submitting students attendance\n" + Color.RESET);
@@ -183,9 +292,16 @@ public class Test {
 
 
         System.out.println("\n\n####################" + Color.RED_BOLD_BRIGHT + " Testing Student " + Color.RESET + "#######################\n\n");
-        Student student = admin1.viewStudentDetails("5");
+        Student student = null;
+        try {
+            student = admin1.viewStudentDetails("5");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "1. viewing enrolled courses for student 5\n" + Color.RESET);
+        assert student != null;
         for (Course course : student.viewEnrolledCourses()) {
             System.out.println(course);
         }
@@ -194,12 +310,22 @@ public class Test {
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "2. submitting assignment\n" + Color.RESET);
         AssignmentSubmission assignmentSubmission = new AssignmentSubmission("2", student.getId(), "1", "solution for assignment2");
-        student.submitAssignment(assignmentSubmission);
+        try {
+            student.submitAssignment(assignmentSubmission);
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
         System.out.println();
 
         System.out.println(Color.CYAN_BOLD_BRIGHT + "3. viewing assignment for course 1\n" + Color.RESET);
-        for (Assignment assignment : student.viewAssignments("1")){
-            System.out.println(assignment);
+        try {
+            for (Assignment assignment : student.viewAssignments("1")){
+                System.out.println(assignment);
+            }
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println();
         }
 
         System.out.println();

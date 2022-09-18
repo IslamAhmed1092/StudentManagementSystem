@@ -1,5 +1,6 @@
 package user;
 
+import exception.NotFoundException;
 import model.Assignment;
 import model.AssignmentSubmission;
 import model.Course;
@@ -72,11 +73,11 @@ public class Student extends User {
         return courseAPI.getCourses(enrolledCourses);
     }
 
-    public List<Assignment> viewAssignments(String courseID) {
+    public List<Assignment> viewAssignments(String courseID) throws NotFoundException {
         return assignmentAPI.getCourseAssignments(courseID);
     }
 
-    public void submitAssignment(AssignmentSubmission assignmentSubmission) {
+    public void submitAssignment(AssignmentSubmission assignmentSubmission) throws NotFoundException {
         assignmentAPI.submitAssignment(assignmentSubmission);
     }
 

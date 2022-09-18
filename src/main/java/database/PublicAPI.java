@@ -1,5 +1,6 @@
 package database;
 
+import exception.NotFoundException;
 import model.Course;
 import user.Admin;
 import user.Student;
@@ -9,22 +10,29 @@ public class PublicAPI {
 
     private final static Database db = Database.getInstance();
 
-    public static Admin getAdmin(String id) {
+    public static Admin getAdmin(String id) throws NotFoundException {
         Admin admin = db.admins.get(id);
 
-        return (admin != null)? new Admin(admin) : null;
+        if(admin == null) throw new NotFoundException("Admin not found");
+
+        return new Admin(admin);
     }
 
-    public static Teacher getTeacher(String id) {
+    public static Teacher getTeacher(String id) throws NotFoundException {
         Teacher teacher = db.teachers.get(id);
 
-        return (teacher!=null)? new Teacher(teacher) : null;
+        if(teacher == null) throw new NotFoundException("Teacher Not Found");
+
+        return new Teacher(teacher);
     }
 
-    public static Student getStudent(String id) {
+    public static Student getStudent(String id) throws NotFoundException {
         Student student = db.students.get(id);
 
-        return (student!=null)? new Student(student) : null;
+        if(student == null) throw new NotFoundException("Teacher Not Found");
+
+
+        return new Student(student);
     }
 
     public static void addAdmin(Admin admin) {
