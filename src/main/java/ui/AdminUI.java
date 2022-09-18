@@ -1,6 +1,7 @@
 package ui;
 
 import database.PublicAPI;
+import model.Course;
 import user.Admin;
 import user.Student;
 import user.Teacher;
@@ -31,8 +32,12 @@ public class AdminUI implements UserUI {
             System.out.println(Color.CYAN_BOLD_BRIGHT + "8. View All Students" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "9. View Student Details" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "10. Update Student Data" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "11. Add Course" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "12. Remove Course" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "13. View All Courses" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "14. View Course Details" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "15. Update Course Data" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "0. Log out" + Color.RESET);
-
 
             String in = scanner.nextLine();
 
@@ -74,6 +79,21 @@ public class AdminUI implements UserUI {
                     break;
                 case 10:
                     updateStudentData();
+                    break;
+                case 11:
+                    addCourse();
+                    break;
+                case 12:
+                    removeCourse();
+                    break;
+                case 13:
+                    viewAllCourses();
+                    break;
+                case 14:
+                    viewCourseDetails();
+                    break;
+                case 15:
+                    updateCourseData();
                     break;
                 case 0:
                     break loop1;
@@ -240,5 +260,55 @@ public class AdminUI implements UserUI {
 
 
         admin.updateStudentData(student);
+    }
+
+    private void addCourse() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course Name" + Color.RESET);
+        String name = scanner.nextLine();
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Teacher ID" + Color.RESET);
+        String teacherID = scanner.nextLine();
+
+        admin.addCourse(name, teacherID);
+    }
+
+    private void removeCourse() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
+        String id = scanner.nextLine();
+
+        admin.removeCourse(id);
+    }
+
+    private void viewAllCourses() {
+        System.out.println();
+        for (Course course: admin.viewAllCourses()) {
+            System.out.println(course);
+        }
+    }
+
+    private void viewCourseDetails() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
+        String id = scanner.nextLine();
+
+        System.out.println();
+        System.out.println(admin.viewCourseDetails(id));
+    }
+
+    private void updateCourseData() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
+        String id = scanner.nextLine();
+
+        Course course = admin.viewCourseDetails(id);
+        System.out.println(course);
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course Name (blank for no change)" + Color.RESET);
+        String in = scanner.nextLine();
+        if(!in.isEmpty()) course.setName(in);
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Teacher ID (blank for no change)" + Color.RESET);
+        in = scanner.nextLine();
+        if(!in.isEmpty()) course.setTeacherID(in);
+
+        admin.updateCourseData(course);
     }
 }

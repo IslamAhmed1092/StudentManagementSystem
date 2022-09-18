@@ -22,9 +22,9 @@ public class StudentUI implements UserUI{
         System.out.println("starting student functionality");
 
         loop1: while(true) {
-            System.out.println(Color.CYAN_BOLD_BRIGHT + "\n1. Add Teacher" + Color.RESET);
-            System.out.println(Color.CYAN_BOLD_BRIGHT + "2. Remove Teacher" + Color.RESET);
-            System.out.println(Color.CYAN_BOLD_BRIGHT + "3. View All Teachers" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "\n1. View Enrolled Courses" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "2. View Assignments" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "3. Submit Assignment" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "0. Log out" + Color.RESET);
 
             String in = scanner.nextLine();

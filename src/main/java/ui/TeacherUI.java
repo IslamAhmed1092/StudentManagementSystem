@@ -30,6 +30,7 @@ public class TeacherUI implements UserUI {
             System.out.println(Color.CYAN_BOLD_BRIGHT + "4. Get Student Data" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "5. Add Assignment" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "6. Submit Students Attendance" + Color.RESET);
+            System.out.println(Color.CYAN_BOLD_BRIGHT + "7. Assign Student to Course" + Color.RESET);
             System.out.println(Color.CYAN_BOLD_BRIGHT + "0. Log out" + Color.RESET);
 
 
@@ -62,6 +63,8 @@ public class TeacherUI implements UserUI {
                 case 6:
                     submitStudentsAttendance();
                     break;
+                case 7:
+                    assignStudentToCourse();
                 case 0:
                     break loop1;
             }
@@ -177,5 +180,15 @@ public class TeacherUI implements UserUI {
         }
 
         teacher.submitStudentsAttendance(courseAttendances);
+    }
+
+    private void assignStudentToCourse() {
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Student ID" + Color.RESET);
+        String studentID = scanner.nextLine();
+
+        System.out.println(Color.CYAN_BOLD_BRIGHT + "\nEnter Course ID" + Color.RESET);
+        String courseID = scanner.nextLine();
+
+        teacher.assignStudentToCourse(studentID, courseID);
     }
 }

@@ -101,7 +101,7 @@ public class Admin extends User {
         return courseAPI.getAll();
     }
 
-    public void updateCoursesData(Course course) {
+    public void updateCourseData(Course course) {
         courseAPI.update(course);
     }
 
